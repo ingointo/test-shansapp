@@ -1,0 +1,322 @@
+changed contact details to item found or not because of fixing errrors
+
+changed syles option screen container
+eg: 
+
+my first dropdown new Collection
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useState } from 'react'
+import { Picker } from "@react-native-community/picker";
+import { useNavigation } from '@react-navigation/native';
+
+
+const CustomButton = ({ title, onPress }) => {
+    
+    return (
+        <TouchableOpacity style={[styles.buttonContainer]} onPress={onPress}>
+            <View style={styles.buttonContent}>
+                <Text style={styles.buttonText}>{title}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+};
+
+const CustomSubmitButton = ({ title, onPress }) => {
+    return (
+        <TouchableOpacity style={[styles.submitButtonContainer]} onPress={onPress}>
+            <View style={styles.buttonContent}>
+                <Text style={styles.buttonText}>{title}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+};
+const NewCollection = () => {
+    const navigation = useNavigation()
+    const [collectionType, setCollectionType] = useState('');
+    const [selectedCustomer, setSelectedCustomer] = useState('');
+    
+    return (
+        <ScrollView>
+
+            <View style={styles.container}>
+                <View>
+                    <Text style={styles.label}>Date:</Text>
+                    <TextInput
+                        style={styles.input}
+                        editable={false}
+                    />
+                    <Text style={styles.label}>Sales Person:</Text>
+                    <TextInput
+                        style={styles.input}
+                        editable={false}
+                    />
+                    <Text style={styles.label}>Shop:</Text>
+                    <TextInput
+                        style={styles.input}
+                        editable={false}
+                    />
+                    <Text style={styles.label}>Company:</Text>
+                    <TextInput
+                        style={styles.input}
+                        editable={false}
+                    />
+                    <Text style={styles.label}>Collection Type:</Text>
+                </View>
+                <View style={styles.dropdown}>
+
+                    <Picker
+                        collectionType={collectionType}
+                        onValueChange={(itemValue, itemIndex) => setCollectionType(itemValue)}
+                    >
+                        <Picker.Item label="Select a collection type" value="" />
+                        <Picker.Item label="Option 1" value="option1" />
+                        <Picker.Item label="Option 2" value="option2" />
+                        <Picker.Item label="Option 3" value="option3" />
+                    </Picker>
+                </View>
+                <View style={styles.customerBorder}>
+                    <View style={styles.customerContent}>
+                       
+                        {/* <View style={styles.dropdown}>
+                            <Picker
+                                selectedCustomer={selectedCustomer}
+                                onValueChange={(itemValue, itemIndex) => setSelectedCustomer(itemValue)}
+                            >
+                                <Picker.Item label="Select Customer" value="" />
+                                <Picker.Item label="Option 1" value="option1" />
+                                <Picker.Item label="Option 2" value="option2" />
+                                <Picker.Item label="Option 3" value="option3" />
+                            </Picker>
+                        </View> */}
+                        <Text style={styles.label}>Customer: </Text>
+                        <TextInput
+                            style={styles.input}
+                            editable={false}
+                            placeholder='Enter Customer Name'
+                        />
+                        <Text style={styles.label}>Invoice Number :</Text>
+                        <TextInput
+                            style={styles.input}
+                            editable={false}
+                            placeholder='Enter Invoice No'
+                        />
+                        <Text style={styles.label}>AMT :</Text>
+                        <TextInput
+                            style={styles.input}
+                            editable={false}
+                            placeholder='Enter Total Amount'
+                        />
+                        <View style={styles.customerBottom}>
+                            <Text style={styles.qrLabel}>Update from Qr code?</Text>
+                            <CustomButton title="Scan" onPress={()=> navigation.navigate('Scanner')}/>
+                        </View>
+                    </View>
+
+                </View>
+                <Text style={styles.label}>Remarks :</Text>
+                <TextInput
+                    style={styles.inputRemarks}
+                    editable={false}
+                    placeholder='Enter Remarks'
+                />
+                {/* <Text style={styles.selectedValue}>Selected Value: {selectedValue}</Text> */}
+
+                <Text style={styles.label}>Customer/Vendor Signature</Text>
+                <View style={styles.signatureContainer}>
+                    {/* signature  */}
+                </View>
+                <CustomSubmitButton title="Submit"  />
+            </View>
+        </ScrollView>
+    )
+}
+const styles = StyleSheet.create({
+    container: {
+        flexGrow: 1,
+        padding: 10,
+    },
+    label: {
+        color: "#ffa600",
+        fontWeight: "bold",
+        fontSize: 13,
+        marginBottom: 2,
+        marginTop: 3
+    },
+    input: {
+        borderWidth: 0.9,
+        borderColor: 'gray',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        fontSize: 18,
+        borderRadius: 6,
+        fontSize: 13,
+
+    },
+    dropdown: {
+        borderWidth: 0.9,
+        borderColor: 'gray',
+        paddingHorizontal: 10,
+        paddingVertical: 2,
+        fontSize: 18,
+        borderRadius: 6,
+
+    },
+    customerBorder: {
+        marginTop: 15,
+        borderWidth: 1.5,
+        borderRadius: 6,
+        borderColor: "#ffa600",
+        marginVertical: 10
+    },
+    customerContent: {
+        marginHorizontal: 18,
+        marginVertical: 10
+    },
+    buttonContent: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    buttonText: {
+        color: "#FFFFFF",
+        fontSize: 13,
+        fontWeight: "700",
+        textAlign: "center",
+        fontFamily: "sans-serif-medium",
+        letterSpacing: 0.7
+    },
+    buttonContainer: {
+        height: 30,
+        paddingHorizontal: 19,
+        justifyContent: "center",
+        backgroundColor: "#fac02e",
+        borderRadius: 2,
+    },
+    submitButtonContainer: {
+        height: 40,
+        paddingHorizontal: 19,
+        justifyContent: "center",
+        backgroundColor: "#fac02e",
+        borderRadius: 5,
+        marginTop: 15,
+        marginHorizontal: 10,
+        alignItems: "center"
+    },
+    customerBottom: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: 20
+    },
+    qrLabel: {
+        color: "#ffa600",
+        fontWeight: "bold",
+        fontSize: 13,
+        marginBottom: 2,
+        marginVertical: 30
+    },
+    inputRemarks: {
+        borderWidth: 0.9,
+        borderColor: 'gray',
+        paddingHorizontal: 10,
+        paddingVertical: 30,
+        fontSize: 18,
+        borderRadius: 6,
+        fontSize: 13,
+    },
+    signatureContainer: {
+        borderWidth: 0.9,
+        borderColor: 'gray',
+        paddingHorizontal: 10,
+        paddingVertical: 100,
+        fontSize: 18,
+        borderRadius: 6,
+        fontSize: 13,
+    }
+})
+
+export default NewCollection
+
+
+
+in my assumtion  i a m working cash collection we cant fetch or getting data u must use if case to get data because when rendering a component not wait for getting and fetch the data 
+
+
+
+completed fetch details and collection type capital payment, invoice, vendor, capital Receipts 
+
+
+
+salesreturn api is not getting i want to complete the details also not getting collection type also
+purchase return also have no collection type finding because of the buisiness type i snot found in the api 
+
+
+console.error('API error:', error); // i have a doubt 470 is showing the screen error message
+
+send signature to api 
+
+
+import axios from 'axios';
+import * as FileSystem from 'expo-file-system';
+import { baseUrl } from '../const';
+
+
+const sendSignatureToAPI = async (fileUri, navigation) => {
+  console.log("88888888888888888888888-=======================================================================8888888887777777")
+  console.log(fileUri)
+ 
+  try {
+      const apiUrl = `${baseUrl}/fileupload`;
+      const fileInfo = await FileSystem.getInfoAsync(fileUri);
+      const formData = new FormData();
+      const contentType = 'image/png';
+
+      formData.append('file', {
+        uri: fileUri,
+        type: contentType,
+        name: fileInfo.uri.split('/').pop(),
+      });
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }}
+
+      const response = await axios.post(apiUrl, formData, config);
+
+      console.log(response.data)
+      const uploadUrl = response.data.data;
+      if (uploadUrl) {
+
+        navigation.navigate('NewCollection', { uploadUrl: uploadUrl });
+      }
+      console.log('API response----1:', response.data.data);
+  
+
+    // Handle the API response as needed
+  } catch (error) {
+    console.log('API error-+++++++++++++++++++++++++++=--sendSignaturetoApi:', error);
+    if (error.response) {
+      console.log('Error response data:', error.response);
+      // console.log('Error response status:', error.response.status);
+      // console.log('Error response headers:', error.response.headers);
+    } else if (error.request) {
+      // console.log('No response received:', error.request);
+    } else {
+      // console.log('Error message:', error.message);
+    }
+    // Handle the error
+  }
+};
+
+export default sendSignatureToAPI;
+
+
+
+completed 
+
+invoice, vendor, Capital reaceipts, Capital Payments, pettyCashAllotment, pettycashexpense, purchasereturn, salesReturn, 
+
+
+jobinvoice, spareissue - not completed because sequnece number of jobinvoice is missing eg Invoice-JOBINV-48 Invoice getting error deployment
+
+spare issue want a field to totalamount that spare issue want also an api for sequence number searching api creating sequnece number 
